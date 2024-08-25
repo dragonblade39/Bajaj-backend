@@ -12,7 +12,6 @@ const USER_ID = "21BCE0427";
 const EMAIL = "chethan.nv2021@vitstudent.ac.in";
 const ROLL_NUMBER = "21BCE0427";
 
-// POST /bfhl endpoint
 app.post("/bfhl", (req, res) => {
   try {
     const data = req.body.data;
@@ -22,7 +21,6 @@ app.post("/bfhl", (req, res) => {
         .json({ is_success: false, error: "Data must be an array" });
     }
 
-    // Separate numbers and alphabets
     const numbers = data.filter(
       (item) => typeof item === "string" && /^[0-9]+$/.test(item)
     );
@@ -30,7 +28,6 @@ app.post("/bfhl", (req, res) => {
       (item) => typeof item === "string" && /^[A-Za-z]$/.test(item)
     );
 
-    // Find the highest lowercase alphabet
     const lowercaseAlphabets = alphabets.filter(
       (char) => char === char.toLowerCase()
     );
@@ -56,17 +53,14 @@ app.post("/bfhl", (req, res) => {
   }
 });
 
-// GET /bfhl endpoint
 app.get("/bfhl", (req, res) => {
   res.json({ operation_code: 1 });
 });
 
-// Handle 404 - Not Found
 app.use((req, res, next) => {
   res.status(404).json({ error: "Endpoint not found" });
 });
 
-// Global Error Handler
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({ error: "Internal Server Error" });
